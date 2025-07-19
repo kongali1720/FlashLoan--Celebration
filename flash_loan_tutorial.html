@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kongali1720 Flash Loan Tutorial - From Zero to Hero</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .code-block {
+            background: #1a1a2e;
+            color: #eee;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            overflow-x: auto;
+        }
+        .step-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid #10b981;
+        }
+        .step-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .progress-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transition: width 0.3s ease;
+        }
+        .wallet-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        .success-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .terminal {
+            background: #000;
+            color: #00ff00;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            min-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-bolt text-3xl text-blue-600"></i>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Kongali1720 Flash Loan Tutorial</h1>
+                        <p class="text-sm text-gray-500">© 2025 Kongali1720. All Rights Reserved.</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm text-gray-500">From Zero to Hero 🚀</div>
+                    <div class="text-xs text-blue-600 font-semibold">by @Kongali1720</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="bg-white border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%" id="progressBar"></div>
+            </div>
+            <div class="mt-2 text-sm text-gray-600">
+                Step <span id="currentStep">0</span> of <span id="totalSteps">7</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Wallet Info Card -->
+        <div class="wallet-info">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold mb-2">Your Wallet Information</h2>
+                    <p class="text-sm opacity-90">Address: <span class="font-mono">0x5448c44c2088f43d651dbeAACee99aFf5fEC95c6</span></p>
+                    <p class="text-sm opacity-90">Balance: <span class="font-bold">1.7971 SepoliaETH</span></p>
+                </div>
+                <div class="text-right">
+                    <i class="fas fa-wallet text-4xl opacity-70"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Project Setup -->
+        <div class="step-card bg-white rounded-lg shadow-md p-6 mb-6" id="step1">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">1</div>
+                <h3 class="text-xl font-bold text-gray-900">Project Setup</h3>
+                <span class="ml-auto text-sm text-gray-500" id="step1-status">Pending</span>
+            </div>
+            
+            <p class="text-gray-600 mb-4">Buat folder project dan install dependencies yang diperlukan.</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <h4 class="font-semibold mb-2">1. Buat folder project:</h4>
+                    <div class="code-block">mkdir flash-loan-tutorial
+cd flash-loan-tutorial</div>
+                    <button class="btn-primary text-white px-4 py-2 rounded mt-2 hover:bg-blue-700" onclick="executeStep1()">
+                        <i class="fas fa-play mr-2"></i>Generate Project Structure
+                    </button>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-2">2. Install Dependencies:</h4>
+                    <div class="code-block">npm init -y
+npm install --legacy-peer-deps</div>
+                    <div class="bg-yellow-50 border border-yellow-200 rounded p-3 mt-2">
+                        <div class="flex items-center">
+                            <i class="fas fa-info-circle text-yellow-600 mr-2"></i>
+                            <span class="text-yellow-800 text-sm">Gunakan --legacy-peer-deps untuk fix dependency conflicts</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary text-white px-4 py-2 rounded mt-2" onclick="generatePackageJson()">
+                        <i class="fas fa-download mr-2"></i>Generate package.json
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Contract Creation -->
+        <div class="step-card bg-white rounded-lg shadow-md p-6 mb-6" id="step2">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">2</div>
+                <h3 class="text-xl font-bold text-gray-900">Smart Contract</h3>
+                <span class="ml-auto text-sm text-gray-500" id="step2-status">Pending</span>
+            </div>
+            
+            <p class="text-gray-600 mb-4">Buat smart contract flash loan dengan fitur lengkap.</p>
+            
+            <button class="btn-primary text-white px-4 py-2 rounded mb-4" onclick="generateContract()">
+                <i class="fas fa-file-code mr-2"></i>Generate SimpleFlashLoan.sol
+            </button>
+            
+            <div id="contractCode" class="hidden">
+                <h4 class="font-semibold mb-2">contracts/SimpleFlashLoan.sol:</h4>
+                <div class="code-block max-h-60 overflow-y-auto">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.10;
+
+import "@aave/core-v3/contracts/flashloan/base/FlashLoanSimpleReceiverBase.sol";
+import "@aave/core-v3/contracts/interfaces/IPoolAddressesProvider.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract SimpleFlashLoan is FlashLoanSimpleReceiverBase, Ownable {
+    
+    event FlashLoanExecuted(
+        address indexed asset,
+        uint256 amount,
+        uint256 premium,
+        address indexed initiator
+    );
+    
+    constructor(address _addressProvider) 
+        FlashLoanSimpleReceiverBase(IPoolAddressesProvider(_addressProvider)) 
+    {}
+    
+    function executeOperation(
+        address asset,
+        uint256 amount,
+        uint256 premium,
+        address initiator,
+        bytes calldata params
+    ) external override returns (bool) {
+        require(msg.sender == address(POOL), "Caller must be Pool");
+        
+        emit FlashLoanExecuted(asset, amount, premium, initiator);
+        
+        uint256 totalAmount = amount + premium;
+        IERC20(asset).approve(address(POOL), totalAmount);
+        
+        return true;
+    }
+    
+    function requestFlashLoan(address _token, uint256 _amount) public {
+        POOL.flashLoanSimple(address(this), _token, _amount, "", 0);
+    }
+    
+    function withdrawProfit(address _token) external onlyOwner {
+        IERC20 token = IERC20(_token);
+        uint256 balance = token.balanceOf(address(this));
+        token.transfer(owner(), balance);
+    }
+    
+    receive() external payable {}
+}</div>
+            </div>
+        </div>
+
+        <!-- Step 3: Configuration -->
+        <div class="step-card bg-white rounded-lg shadow-md p-6 mb-6" id="step3">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">3</div>
+                <h3 class="text-xl font-bold text-gray-900">Configuration</h3>
+                <span class="ml-auto text-sm text-gray-500" id="step3-status">Pending</span>
+            </div>
+            
+            <p class="text-gray-600 mb-4">Setup konfigurasi Hardhat dan environment variables.</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <h4 class="font-semibold mb-2">Environment Variables (.env):</h4>
+                    <div class="bg-yellow-50 border border-yellow-200 rounded p-3 mb-2">
+                        <div class="flex items-center">
+                            <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
+                            <span class="text-yellow-800 text-sm">Isi dengan credential Anda!</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <input type="text" id="rpcUrl" placeholder="Infura/Alchemy RPC URL" class="w-full p-2 border rounded">
+                        <input type="password" id="privateKey" placeholder="Private Key Wallet Anda" class="w-full p-2 border rounded">
+                        <input type="text" id="etherscanKey" placeholder="Etherscan API Key (optional)" class="w-full p-2 border rounded">
+                    </div>
+                    <button class="btn-primary text-white px-4 py-2 rounded mt-2" onclick="generateEnvFile()">
+                        <i class="fas fa-cog mr-2"></i>Generate .env File
+                    </button>
+                </div>
+                
+                <div>
+                    <button class="btn-primary text-white px-4 py-2 rounded" onclick="generateHardhatConfig()">
+                        <i class="fas fa-tools mr-2"></i>Generate hardhat.config.js
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Deploy Scripts -->
+        <div class="step-card bg-white rounded-lg shadow-md p-6 mb-6" id="step4">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">4</div>
+                <h3 class="text-xl font-bold text-gray-900">Deploy Scripts</h3>
+                <span class="ml-auto text-sm text-gray-500" id="step4-status">Pending</span>
+            </div>
+            
+            <p class="text-gray-600 mb-4">Generate semua script yang diperlukan untuk deployment dan testing.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button class="btn-primary text-white px-4 py-2 rounded" onclick="generateDeployScript()">
+                    <i class="fas fa-rocket mr-2"></i>Generate Deploy Script
+                </button>
+                <button class="btn-primary text-white px-4 py-2 rounded" onclick="generateTestScript()">
+                    <i class="fas fa-flask mr-2"></i>Generate Test Script
+                </button>
+                <button class="btn-primary text-white px-4 py-2 rounded" onclick="generateConstantsFile()">
+                    <i class="fas fa-list mr-2"></i>Generate Constants
+                </button>
+                <button class="btn-primary text-white px-4 py-2 rounded" onclick="generateTokenScript()">
+                    <i class="fas fa-coins mr-2"></i>Generate Token Script
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 5: Compilation -->
+        <div class="step-card bg-white rounded-lg shadow-md p-6 mb-6" id="step5">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">5</div>
+                <h3 class="text-xl font-bold text-gray-900">Compile Contract</h3>
+                <span class="ml-auto text-sm text-gray-500" id="step5-status">Pending</span>
+            </div>
+            
+            <p class="text-gray-600 mb-4">Compile smart contract sebelum deploy.</p>
+            
+            <div class="terminal" id="terminal5">Ready to compile contract...</div>
+            
+            <button class="btn-primary text-white px-4 py-2 rounded mt-4" onclick="simulateCompile()">
+                <i class="fas fa-hammer mr-2"></i>Simulate Compile
+            </button>
+        </div>
+
+        <!-- Step 6: Deployment -->
+        <div class="step-card bg-white rounded-lg shadow-md p-6 mb-6" id="step6">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">6</div>
+                <h3 class="text-xl font-bold text-gray-900">Deploy to Sepolia</h3>
+                <span class="ml-auto text-sm text-gray-500" id="step6-status">Pending</span>
+            </div>
+            
+            <p class="text-gray-600 mb-4">Deploy contract ke Sepolia testnet.</p>
+            
+            <div class="terminal" id="terminal6">Ready to deploy contract...</div>
+            
+            <button class="btn-primary text-white px-4 py-2 rounded mt-4" onclick="simulateDeploy()">
+                <i class="fas fa-cloud-upload-alt mr-2"></i>Simulate Deploy
+            </button>
+        </div>
+
+        <!-- Step 7: Testing -->
+        <div class="step-card bg-white rounded-lg shadow-md p-6 mb-6" id="step7">
+            <div class="flex items-center mb-4">
+                <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-3">7</div>
+                <h3 class="text-xl font-bold text-gray-900">Test Flash Loan</h3>
+                <span class="ml-auto text-sm text-gray-500" id="step7-status">Pending</span>
+            </div>
+            
+            <p class="text-gray-600 mb-4">Test flash loan pertama kali.</p>
+            
+            <div class="terminal" id="terminal7">Ready to test flash loan...</div>
+            
+            <button class="btn-primary text-white px-4 py-2 rounded mt-4" onclick="simulateTest()">
+                <i class="fas fa-play-circle mr-2"></i>Simulate Test
+            </button>
+        </div>
+
+        <!-- Resources Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-4">📚 Resources & Links</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h4 class="font-semibold mb-2">🚰 Faucets:</h4>
+                    <ul class="text-sm text-blue-600 space-y-1">
+                        <li><a href="https://sepoliafaucet.com/" target="_blank">Sepolia ETH Faucet</a></li>
+                        <li><a href="https://staging.aave.com/" target="_blank">Aave Testnet Faucet</a></li>
+                        <li><a href="https://sepolia-faucet.pk910.de/" target="_blank">PoW Sepolia Faucet</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-2">📖 Documentation:</h4>
+                    <ul class="text-sm text-blue-600 space-y-1">
+                        <li><a href="https://docs.aave.com/developers/" target="_blank">Aave Documentation</a></li>
+                        <li><a href="https://hardhat.org/docs" target="_blank">Hardhat Documentation</a></li>
+                        <li><a href="https://sepolia.etherscan.io/" target="_blank">Sepolia Etherscan</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright Notice -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">⚠️ Copyright Notice</h3>
+                    <p class="text-blue-700 text-sm">
+                        Tutorial ini adalah karya asli <strong>Kongali1720</strong>. Dilarang keras menyalin, 
+                        mendistribusikan, atau menggunakan materi ini tanpa izin tertulis.
+                    </p>
+                    <div class="mt-3 text-xs text-blue-600">
+                        <p>📧 Contact: kongali1720@email.com</p>
+                        <p>🔗 Official: @Kongali1720</p>
+                        <p>⚖️ Licensed under Kongali1720 Proprietary License</p>
+                    </div>
+                </div>
+                <div class="text-blue-600">
+                    <i class="fas fa-shield-alt text-4xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Download All Files -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-green-800 mb-4">📦 Download Complete Project</h3>
+            <p class="text-green-700 mb-4">Setelah selesai generate semua file, download project lengkap sebagai ZIP.</p>
+            <div class="bg-yellow-50 border border-yellow-200 rounded p-3 mb-4">
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
+                    <span class="text-yellow-800 text-sm">
+                        <strong>Perhatian:</strong> File yang didownload hanya untuk penggunaan personal/edukasi. 
+                        Dilarang mendistribusikan ulang tanpa izin Kongali1720.
+                    </span>
+                </div>
+            </div>
+            <button class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors" onclick="downloadProject()">
+                <i class="fas fa-download mr-2"></i>Download Project ZIP
+            </button>
+        </div>
+    </main>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 7;
+        let generatedFiles = {};
+
+        function updateProgress() {
+            currentStep++;
+            const progressPercent = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+            document.getElementById('currentStep').textContent = currentStep;
+        }
+
+        function updateStepStatus(stepNum, status) {
+            document.getElementById(`step${stepNum}-status`).textContent = status;
+            document.getElementById(`step${stepNum}-status`).className = 
+                status === 'Completed' ? 'ml-auto text-sm text-green-600' : 'ml-auto text-sm text-gray-500';
+        }
+
+        function executeStep1() {
+            updateStepStatus(1, 'Completed');
+            updateProgress();
+            
+            // Generate folder structure
+            const folderStructure = `flash-loan-tutorial/
+├── contracts/
+│   ├── SimpleFlashLoan.sol
+│   └── interfaces/
+├── scripts/
+│   ├── deploy.js
+│   ├── test-flashloan.js
+│   ├── get-tokens.js
+│   └── helpers/
+│       └── constants.js
+├── test/
+├── tasks/
+├── .env
+├── .gitignore
+├── hardhat.config.js
+├── package.json
+└── README.md`;
+            
+            alert('✅ Project structure generated!\n\n' + folderStructure);
+        }
+
+        function generatePackageJson() {
+            const packageJson = {
+                "name": "flash-loan-tutorial",
+                "version": "1.0.0",
+                "description": "Flash Loan Tutorial for Sepolia Testnet",
+                "scripts": {
+                    "compile": "npx hardhat compile",
+                    "deploy": "npx hardhat run scripts/deploy.js --network sepolia",
+                    "test": "npx hardhat test",
+                    "clean": "npx hardhat clean",
+                    "install-deps": "npm install --legacy-peer-deps"
+                },
+                "devDependencies": {
+                    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+                    "hardhat": "^2.22.0",
+                    "dotenv": "^16.4.0",
+                    "ethers": "^6.13.0"
+                },
+                "dependencies": {
+                    "@aave/core-v3": "^1.19.3",
+                    "@openzeppelin/contracts": "^5.0.0"
+                },
+                "overrides": {
+                    "ethers": "^6.13.0"
+                }
+            };
+            
+            generatedFiles['package.json'] = JSON.stringify(packageJson, null, 2);
+            downloadFile('package.json', generatedFiles['package.json']);
+        }
+
+        function generateContract() {
+            document.getElementById('contractCode').classList.remove('hidden');
+            updateStepStatus(2, 'Completed');
+            updateProgress();
+            
+            const contractCode = `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.10;
+
+import "@aave/core-v3/contracts/flashloan/base/FlashLoanSimpleReceiverBase.sol";
+import "@aave/core-v3/contracts/interfaces/IPoolAddressesProvider.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract SimpleFlashLoan is FlashLoanSimpleReceiverBase, Ownable {
+    
+    event FlashLoanExecuted(
+        address indexed asset,
+        uint256 amount,
+        uint256 premium,
+        address indexed initiator
+    );
+    
+    constructor(address _addressProvider) 
+        FlashLoanSimpleReceiverBase(IPoolAddressesProvider(_addressProvider)) 
+    {}
+    
+    function executeOperation(
+        address asset,
+        uint256 amount,
+        uint256 premium,
+        address initiator,
+        bytes calldata params
+    ) external override returns (bool) {
+        require(msg.sender == address(POOL), "Caller must be Pool");
+        
+        emit FlashLoanExecuted(asset, amount, premium, initiator);
+        
+        uint256 totalAmount = amount + premium;
+        IERC20(asset).approve(address(POOL), totalAmount);
+        
+        return true;
+    }
+    
+    function requestFlashLoan(address _token, uint256 _amount) public {
+        POOL.flashLoanSimple(address(this), _token, _amount, "", 0);
+    }
+    
+    function withdrawProfit(address _token) external onlyOwner {
+        IERC20 token = IERC20(_token);
+        uint256 balance = token.balanceOf(address(this));
+        token.transfer(owner(), balance);
+    }
+    
+    receive() external payable {}
+}`;
+            
+            generatedFiles['contracts/SimpleFlashLoan.sol'] = contractCode;
+            downloadFile('SimpleFlashLoan.sol', contractCode);
+        }
+
+        function generateEnvFile() {
+            const rpcUrl = document.getElementById('rpcUrl').value;
+            const privateKey = document.getElementById('privateKey').value;
+            const etherscanKey = document.getElementById('etherscanKey').value;
+            
+            if (!rpcUrl || !privateKey) {
+                alert('⚠️ Please fill in RPC URL and Private Key!');
+                return;
+            }
+            
+            const envContent = `# Network Configuration
+SEPOLIA_RPC_URL=${rpcUrl}
+
+# Wallet Private Key (NEVER SHARE THIS!)
+PRIVATE_KEY=${privateKey}
+
+# API Keys
+ETHERSCAN_API_KEY=${etherscanKey}
+
+# Contract Address (will be filled after deployment)
+FLASHLOAN_CONTRACT_ADDRESS=`;
+            
+            generatedFiles['.env'] = envContent;
+            downloadFile('.env', envContent);
+            
+            updateStepStatus(3, 'Completed');
+            updateProgress();
+        }
+
+        function generateHardhatConfig() {
+            const configContent = `require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
+
+module.exports = {
+  solidity: {
+    version: "0.8.10",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
+  networks: {
+    sepolia: {
+      url: process.env.SEPOLIA_RPC_URL,
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 11155111,
+      gas: 6000000,
+      gasPrice: 20000000000,
+    },
+  },
+  etherscan: {
+    apiKey: {
+      sepolia: process.env.ETHERSCAN_API_KEY,
+    },
+  },
+};`;
+            
+            generatedFiles['hardhat.config.js'] = configContent;
+            downloadFile('hardhat.config.js', configContent);
+        }
+
+        function generateDeployScript() {
+            const deployScript = `const { ethers } = require("hardhat");
+
+async function main() {
+  console.log("🚀 Deploying Flash Loan Contract...");
+  
+  const POOL_ADDRESSES_PROVIDER = "0x0496275d34753A48320CA58103d5220d394FF77F";
+  
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying with account:", deployer.address);
+  
+  const balance = await deployer.getBalance();
+  console.log("Account balance:", ethers.utils.formatEther(balance), "ETH");
+  
+  const SimpleFlashLoan = await ethers.getContractFactory("SimpleFlashLoan");
+  const flashLoan = await SimpleFlashLoan.deploy(POOL_ADDRESSES_PROVIDER);
+  
+  await flashLoan.deployed();
+  
+  console.log("✅ SimpleFlashLoan deployed to:", flashLoan.address);
+  console.log("Update your .env file with:");
+  console.log(\`FLASHLOAN_CONTRACT_ADDRESS=\${flashLoan.address}\`);
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });`;
+            
+            generatedFiles['scripts/deploy.js'] = deployScript;
+            downloadFile('deploy.js', deployScript);
+            
+            updateStepStatus(4, 'Completed');
+            updateProgress();
+        }
+
+        function generateTestScript() {
+            const testScript = `const { ethers } = require("hardhat");
+
+async function main() {
+  console.log("🧪 Testing Flash Loan Contract...");
+  
+  const contractAddress = process.env.FLASHLOAN_CONTRACT_ADDRESS;
+  if (!contractAddress) {
+    throw new Error("Please set FLASHLOAN_CONTRACT_ADDRESS in .env");
+  }
+  
+  const [signer] = await ethers.getSigners();
+  console.log("Testing with account:", signer.address);
+  
+  const SimpleFlashLoan = await ethers.getContractFactory("SimpleFlashLoan");
+  const flashLoan = SimpleFlashLoan.attach(contractAddress);
+  
+  const USDC_SEPOLIA = "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8";
+  const amount = ethers.utils.parseUnits("100", 6); // 100 USDC
+  
+  console.log("Executing flash loan with 100 USDC...");
+  
+  try {
+    const tx = await flashLoan.requestFlashLoan(USDC_SEPOLIA, amount);
+    console.log("Transaction sent:", tx.hash);
+    
+    const receipt = await tx.wait();
+    console.log("✅ Flash loan executed successfully!");
+    console.log("Gas used:", receipt.gasUsed.toString());
+    
+  } catch (error) {
+    console.error("❌ Flash loan failed:", error.message);
+  }
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });`;
+            
+            generatedFiles['scripts/test-flashloan.js'] = testScript;
+            downloadFile('test-flashloan.js', testScript);
+        }
+
+        function generateConstantsFile() {
+            const constantsContent = `const SEPOLIA_ADDRESSES = {
+  POOL_ADDRESSES_PROVIDER: "0x0496275d34753A48320CA58103d5220d394FF77F",
+  POOL: "0x6Ae43d3271ff6888e7Fc43Fd7321a503ff738951",
+  USDC: "0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8",
+  USDT: "0x7169D38820dfd117C3FA1f22a697dBA58d90BA06",
+  DAI: "0x68194a729C2450ad26072b3D33ADaCbcef39D574",
+  WETH: "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14",
+};
+
+const TOKEN_DECIMALS = {
+  USDC: 6,
+  USDT: 6,
+  DAI: 18,
+  WETH: 18,
+};
+
+module.exports = {
+  SEPOLIA_ADDRESSES,
+  TOKEN_DECIMALS,
+};`;
+            
+            generatedFiles['scripts/helpers/constants.js'] = constantsContent;
+            downloadFile('constants.js', constantsContent);
+        }
+
+        function generateTokenScript() {
+            const tokenScript = `const { ethers } = require("hardhat");
+
+async function main() {
+  console.log("🪙 Getting Testnet Tokens...");
+  
+  const [signer] = await ethers.getSigners();
+  console.log("Account:", signer.address);
+  
+  const ethBalance = await signer.getBalance();
+  console.log("ETH Balance:", ethers.utils.formatEther(ethBalance), "ETH");
+  
+  console.log("\\n🚰 Get testnet tokens from:");
+  console.log("1. Sepolia ETH: https://sepoliafaucet.com/");
+  console.log("2. Aave Tokens: https://staging.aave.com/");
+  console.log("3. Your wallet:", signer.address);
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });`;
+            
+            generatedFiles['scripts/get-tokens.js'] = tokenScript;
+            downloadFile('get-tokens.js', tokenScript);
+        }
+
+        function simulateCompile() {
+            const terminal = document.getElementById('terminal5');
+            terminal.innerHTML = '';
+            
+            const steps = [
+                'Compiling 1 file with 0.8.10',
+                'Downloading @aave/core-v3...',
+                'Downloading @openzeppelin/contracts...',
+                'Compiling contracts/SimpleFlashLoan.sol...',
+                'Generating typings...',
+                'Compilation finished successfully',
+                '✅ Contract compiled successfully!'
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < steps.length) {
+                    terminal.innerHTML += steps[i] + '\n';
+                    terminal.scrollTop = terminal.scrollHeight;
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    updateStepStatus(5, 'Completed');
+                    updateProgress();
+                }
+            }, 1000);
+        }
+
+        function simulateDeploy() {
+            const terminal = document.getElementById('terminal6');
+            terminal.innerHTML = '';
+            
+            const steps = [
+                '🚀 Deploying Flash Loan Contract...',
+                'Network: sepolia (Chain ID: 11155111)',
+                'Deploying with account: 0x5448c44c2088f43d651dbeAACee99aFf5fEC95c6',
+                'Account balance: 1.7971 ETH',
+                'Estimated gas: 2,500,000',
+                'Deployment transaction: 0x1234567890abcdef...',
+                'Waiting for deployment confirmation...',
+                '✅ SimpleFlashLoan deployed to: 0xabcdef1234567890...',
+                'Gas used: 2,100,000',
+                'Contract verified on Etherscan!',
+                '🎉 Deployment completed successfully!'
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < steps.length) {
+                    terminal.innerHTML += steps[i] + '\n';
+                    terminal.scrollTop = terminal.scrollHeight;
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    updateStepStatus(6, 'Completed');
+                    updateProgress();
+                }
+            }, 1500);
+        }
+
+        function simulateTest() {
+            const terminal = document.getElementById('terminal7');
+            terminal.innerHTML = '';
+            
+            const steps = [
+                '🧪 Testing Flash Loan Contract...',
+                'Testing with account: 0x5448c44c2088f43d651dbeAACee99aFf5fEC95c6',
+                'Contract address: 0xabcdef1234567890...',
+                'Token: USDC (0x94a9D9AC8a22534E3FaCa9F4e7F2E2cf85d5E4C8)',
+                'Amount: 100 USDC',
+                'Expected fee: 0.05 USDC (0.05%)',
+                'Executing flash loan...',
+                'Transaction sent: 0x9876543210fedcba...',
+                'Waiting for confirmation...',
+                '✅ Flash loan executed successfully!',
+                'Gas used: 450,000',
+                'Gas cost: 0.009 ETH',
+                'Flash loan amount: 100 USDC',
+                'Premium paid: 0.05 USDC',
+                '🎉 Test completed successfully!'
+            ];
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < steps.length) {
+                    terminal.innerHTML += steps[i] + '\n';
+                    terminal.scrollTop = terminal.scrollHeight;
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    updateStepStatus(7, 'Completed');
+                    updateProgress();
+                }
+            }, 1200);
+        }
+
+        function downloadFile(filename, content) {
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+
+        function downloadProject() {
+            if (Object.keys(generatedFiles).length === 0) {
+                alert('⚠️ Please generate files first by completing all steps!');
+                return;
+            }
+            
+            // Create a simple text file with all generated files
+            let projectContent = '# Flash Loan Tutorial - Complete Project Files\n\n';
+            
+            for (const [filename, content] of Object.entries(generatedFiles)) {
+                projectContent += `## ${filename}\n\n\`\`\`\n${content}\n\`\`\`\n\n`;
+            }
+            
+            projectContent += `## README.md\n\n\`\`\`\n# Kongali1720 Flash Loan Tutorial
+
+© 2025 Kongali1720. All Rights Reserved.
+
+Complete flash loan project for Sepolia testnet.
+
+⚠️ COPYRIGHT NOTICE:
+This tutorial and all associated materials are the intellectual property of Kongali1720.
+Unauthorized copying, distribution, or commercial use is strictly prohibited.
+For licensing inquiries, contact: kongali1720@email.com
+
+## Setup Instructions:
+
+1. Create project folder: \`mkdir flash-loan-tutorial && cd flash-loan-tutorial\`
+2. Copy all files from this download
+3. Install dependencies: \`npm install\`
+4. Configure .env file with your credentials
+5. Compile: \`npx hardhat compile\`
+6. Deploy: \`npx hardhat run scripts/deploy.js --network sepolia\`
+7. Test: \`npx hardhat run scripts/test-flashloan.js --network sepolia\`
+
+## Your Wallet:
+- Address: 0x5448c44c2088f43d651dbeAACee99aFf5fEC95c6
+- Balance: 1.7971 SepoliaETH
+
+## Resources:
+- Sepolia Faucet: https://sepoliafaucet.com/
+- Aave Faucet: https://staging.aave.com/
+- Etherscan: https://sepolia.etherscan.io/
+
+Happy learning! 🚀
+
+---
+Tutorial by: Kongali1720
+© 2025 All Rights Reserved
+Contact: kongali1720@email.com
+\`\`\``;
+            
+            downloadFile('kongali1720-flash-loan-tutorial.md', projectContent);
+            
+            alert('✅ Project downloaded successfully!\n\nExtract files to your project folder and follow the README instructions.');
+        }
+
+        // Initialize
+        document.getElementById('totalSteps').textContent = totalSteps;
+    </script>
+</body>
+</html>
